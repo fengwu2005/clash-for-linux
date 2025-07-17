@@ -161,6 +161,12 @@ $ proxy_off
 $ select_proxy
 ```
 
+- 服务器节点转发
+
+在vscode的端口选项中加入9090端口，转发至localhost:9090
+
+在本地机浏览器中输入localhost:9090/ui即可直接操作
+
 <br>
 
 # 常见问题
