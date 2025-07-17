@@ -151,7 +151,7 @@ cat $Temp_Dir/proxy.txt >> $Temp_Dir/config.yaml
 
 # Configure Clash Dashboard
 Work_Dir=$(cd $(dirname $0); pwd)
-Dashboard_Dir="${Work_Dir}/dashboard/public"
+Dashboard_Dir="${Work_Dir}/conf/dashboard/public"
 sed -ri "s@^# external-ui:.*@external-ui: ${Dashboard_Dir}@g" $Conf_Dir/config.yaml
 sed -r -i '/^secret: /s@(secret: ).*@\1'${Secret}'@g' $Conf_Dir/config.yaml
 
@@ -205,6 +205,46 @@ function proxy_off(){
 	unset HTTPS_PROXY
 	unset NO_PROXY
 	echo -e "\033[31m[×] 已关闭代理\033[0m"
+}
+
+
+api_url="http://127.0.0.1:9090"
+Secret=""
+
+# 获取Clash代理节点列表
+get_proxy_list() {
+    # 使用您的命令获取代理节点列表
+    # ============= 修改此处 =============
+    proxies=\$(curl -s -X GET -H "Content-Type: application/json" -H "Authorization: Bearer \${Secret}" \$api_url/proxies | jq -c '.proxies.GLOBAL.all')
+}
+
+# 选择代理节点
+select_proxy() {
+    local mode=\$1
+    if [ -z \$mode ]; then
+    mode="Proxy"
+    fi
+    get_proxy_list
+    echo "========== 代理节点列表 =========="
+    i=1
+    # ============= 修改此处 =============
+    echo "\$proxies" | jq -r '.[]' | while IFS= read -r proxy; do
+        echo "\$i. \$proxy"
+        i=\$((i+1))
+    done
+    echo "==================================="
+	echo "请选择代理节点的序号（输入数字）："
+    read proxy_index
+    proxy=\$(echo "\$proxies" | jq -r ".[\$((proxy_index-1))]")
+    # ============= 修改结束 =============
+    if [[ -n \$proxy ]]; then
+        # 更新Clash的代理节点设置
+        curl -X PUT -s "\$api_url/proxies/\$mode" -H "Content-Type: application/json" -H "Authorization: Bearer \${Secret}" --data "{\"name\":\"\$proxy\"}" > /dev/null
+
+        echo "代理节点已更新为：\$proxy"
+    else
+        echo "无效的选择！"
+    fi
 }
 EOF
 

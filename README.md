@@ -46,13 +46,18 @@ $ vim .env
 
 ## 启动程序
 
-直接运行脚本文件`start.sh`
+如需要使用vless类型节点，则需要解压clash-meta，执行以下步骤
 
-- 进入项目目录
+并在脚本start.sh中修改你的ip和secret，第212行；修改启动程序为clash-linux-amd64_meta，第164行。
 
 ```bash
 $ cd clash-for-linux
+$ gunzip -c mihomo-linux-amd64-v1.19.11.gz > ./bin/clash-linux-amd64_meta
 ```
+
+
+直接运行脚本文件`start.sh`
+
 
 - 运行启动脚本
 
@@ -157,6 +162,13 @@ $ proxy_off
 
 此 Clash Dashboard 使用的是[yacd](https://github.com/haishanh/yacd)项目，详细使用方法请移步到yacd上查询。
 
+- 在终端中切换节点
+  
+使用select_proxy即可，会列出所有可用节点，输入数字切换即可。
+
+```bash
+$ select_proxy
+```
 
 <br>
 
