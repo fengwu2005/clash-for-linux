@@ -2,7 +2,7 @@
 
 # 项目介绍
 
-此项目是通过使用开源项目[clash](https://github.com/Dreamacro/clash)作为核心程序，再结合脚本实现简单的代理功能。
+本项目给予[clash-for-linux](https://github.com/wanhebin/clash-for-linux)，替换掉这个仓库原来依赖的clash，替换为clash-meta，解决了vless节点不可用的问题。
 
 主要是为了解决我们在服务器上下载GitHub等一些国外资源速度慢的问题。
 
@@ -19,7 +19,7 @@
 - 当前在RHEL系列和Debian系列Linux系统中测试过，其他系列可能需要适当修改脚本。
 - 支持 x86_64/aarch64 平台
 
-> **注意**：当你在使用此项目时，遇到任何无法独自解决的问题请优先前往 [Issues](https://github.com/wanhebin/clash-for-linux/issues) 寻找解决方法。由于空闲时间有限，后续将不再对Issues中 “已经解答”、“已有解决方案” 的问题进行重复性的回答。
+> **注意**：当你在使用此项目时，遇到任何无法独自解决的问题请优先前往[原仓库Issues](https://github.com/wanhebin/clash-for-linux/issues)寻找解决方法。由于空闲时间有限，后续将不再对Issues中 “已经解答”、“已有解决方案” 的问题进行重复性的回答。
 
 <br>
 
@@ -30,7 +30,7 @@
 下载项目
 
 ```bash
-$ git clone https://github.com/wanhebin/clash-for-linux.git
+$ git clone https://github.com/fengwu2005/clash-for-linux.git
 ```
 
 进入到项目目录，编辑`.env`文件，修改变量`CLASH_URL`的值。
@@ -46,22 +46,13 @@ $ vim .env
 
 ## 启动程序
 
-如需要使用vless类型节点，则需要解压clash-meta，执行以下步骤
-
-并在脚本start.sh中修改你的ip和secret，第212行；修改启动程序为clash-linux-amd64_meta，第164行。
-
-```bash
-$ cd clash-for-linux
-$ gunzip -c mihomo-linux-amd64-v1.19.11.gz > ./bin/clash-linux-amd64_meta
-```
-
 
 直接运行脚本文件`start.sh`
-
 
 - 运行启动脚本
 
 ```bash
+$ cd clash-for-linux
 $ sudo bash start.sh
 
 正在检测订阅地址...

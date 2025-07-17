@@ -161,15 +161,15 @@ echo -e '\n正在启动Clash服务...'
 Text5="服务启动成功！"
 Text6="服务启动失败！"
 if [[ $CpuArch =~ "x86_64" || $CpuArch =~ "amd64"  ]]; then
-	nohup $Server_Dir/bin/clash-linux-amd64 -d $Conf_Dir &> $Log_Dir/clash.log &
+	nohup $Server_Dir/bin/clash-linux-amd64_meta -d $Conf_Dir &> $Log_Dir/clash.log &
 	ReturnStatus=$?
 	if_success $Text5 $Text6 $ReturnStatus
 elif [[ $CpuArch =~ "aarch64" ||  $CpuArch =~ "arm64" ]]; then
-	nohup $Server_Dir/bin/clash-linux-arm64 -d $Conf_Dir &> $Log_Dir/clash.log &
+	nohup $Server_Dir/bin/clash-linux-arm64_meta -d $Conf_Dir &> $Log_Dir/clash.log &
 	ReturnStatus=$?
 	if_success $Text5 $Text6 $ReturnStatus
 elif [[ $CpuArch =~ "armv7" ]]; then
-	nohup $Server_Dir/bin/clash-linux-armv7 -d $Conf_Dir &> $Log_Dir/clash.log &
+	nohup $Server_Dir/bin/clash-linux-armv7_meta -d $Conf_Dir &> $Log_Dir/clash.log &
 	ReturnStatus=$?
 	if_success $Text5 $Text6 $ReturnStatus
 else
@@ -209,7 +209,7 @@ function proxy_off(){
 
 
 api_url="http://127.0.0.1:9090"
-Secret=""
+Secret="${Secret}"
 
 # 获取Clash代理节点列表
 get_proxy_list() {
